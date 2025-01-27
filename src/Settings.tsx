@@ -14,7 +14,8 @@ import React, { useState } from 'react';
         vendorAmount: 250,
         totalAmount: 280,
         commissionType: 'percentage',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'DL'
       },
       {
         id: 2,
@@ -50,7 +51,8 @@ import React, { useState } from 'react';
         vendorAmount: 200,
         totalAmount: 230,
         commissionType: 'percentage',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'AA'
       },
       {
         id: 5,
@@ -62,7 +64,8 @@ import React, { useState } from 'react';
         vendorAmount: 300,
         totalAmount: 500,
         commissionType: 'fixed',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'B6'
       },
       {
         id: 6,
@@ -74,7 +77,8 @@ import React, { useState } from 'react';
         vendorAmount: 400,
         totalAmount: 440,
         commissionType: 'percentage',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'HA'
       },
       {
         id: 7,
@@ -98,7 +102,8 @@ import React, { useState } from 'react';
         vendorAmount: 180,
         totalAmount: 194.4,
         commissionType: 'percentage',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'AS'
       },
       {
         id: 9,
@@ -110,7 +115,8 @@ import React, { useState } from 'react';
         vendorAmount: 100,
         totalAmount: 150,
         commissionType: 'fixed',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'WN'
       },
       {
         id: 10,
@@ -122,7 +128,8 @@ import React, { useState } from 'react';
         vendorAmount: 250,
         totalAmount: 295,
         commissionType: 'percentage',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'UA'
       },
       {
         id: 11,
@@ -146,7 +153,8 @@ import React, { useState } from 'react';
         vendorAmount: 220,
         totalAmount: 246.4,
         commissionType: 'percentage',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'F9'
       },
       {
         id: 13,
@@ -158,7 +166,8 @@ import React, { useState } from 'react';
         vendorAmount: 280,
         totalAmount: 308,
         commissionType: 'percentage',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'VX'
       },
       {
         id: 14,
@@ -182,7 +191,8 @@ import React, { useState } from 'react';
         vendorAmount: 320,
         totalAmount: 364.8,
         commissionType: 'percentage',
-        type: 'flight'
+        type: 'flight',
+        airlineCode: 'AS'
       }
     ];
     
@@ -347,6 +357,12 @@ import React, { useState } from 'react';
         );
       };
     
+      const getCheckInLink = (airlineCode: string | undefined) => {
+        // Replace with actual API call to Amadeus
+        // amadeus.referenceData.urls.checkinLinks.get({ airlineCode: airlineCode })
+        return airlineCode ? `https://www.example.com/checkin?airline=${airlineCode}` : '';
+      };
+    
       return (
         <div className={`min-h-screen ${darkMode ? 'bg-gray-800' : 'bg-gray-50'} flex flex-col items-center px-4`}>
           {/* Header */}
@@ -452,7 +468,12 @@ import React, { useState } from 'react';
                             Cancel
                           </button>
                         )}
-  </div>
+                      </div>
+                      {trip.type === 'flight' && trip.status === 'upcoming' && (
+                        <a href={getCheckInLink(trip.airlineCode)} target="_blank" rel="noopener noreferrer" className={`text-sm hover:underline mt-2 block ${darkMode ? 'text-[#bb44f0]' : 'text-[#4b0086]'}`}>
+                          Check-in
+                        </a>
+                      )}
                     </div>
                     <div className="text-right">
                       <p className={`text-gray-600 ${darkMode ? 'dark:text-gray-300' : ''}`}>
